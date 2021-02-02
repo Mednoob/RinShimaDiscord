@@ -9,8 +9,8 @@ class OsuV2 {
         this.Rin = Rin
     }
 
-    clientID = 4623
-    clientSecret = "1W1LxVAdVQ3UJcvFRHQf8RSaA5Pk38ouyQUpsDGo"
+    clientID = 6969
+    clientSecret = ""
     grantType = "client_credentials"
     scope = "public"
     token = ""
