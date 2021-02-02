@@ -1,0 +1,78 @@
+<script>
+    var prevScrollpos = window.pageYOffset;
+    let current_theme = "light"
+            window.onscroll = function() {
+                var currentScrollPos = window.pageYOffset;
+                if (prevScrollpos > currentScrollPos) {
+                    document.getElementById("rin-navbar").style.animationName = "rin-fade-in-down";
+                    document.getElementById("rin-navbar").style.animationDuration = "0.15s";
+                    document.getElementById("rin-navbar").style.animationFillMode = "forwards";
+                    document.getElementById("rin-navbar").style.animationTimingFunction = "ease";
+                } else {
+                    document.getElementById("rin-navbar").style.animationName = "rin-fade-out-up";
+                    document.getElementById("rin-navbar").style.animationDuration = "1s";
+                    document.getElementById("rin-navbar").style.animationFillMode = "forwards";
+                    document.getElementById("rin-navbar").style.animationTimingFunction = "linear";
+                }
+                prevScrollpos = currentScrollPos;
+            }
+
+            function load_theme() {
+                const RinTexts = document.querySelectorAll(".rin-text")
+            RinTexts.forEach(x => {
+                x.classList.add("text-black")
+            })
+            const RinBgThemes = document.querySelectorAll(".rin-bg-theme")
+            RinBgThemes.forEach(x => {
+                x.classList.add("rin-light-bg")
+            })
+            document.getElementById("rin-below").style.backgroundColor = "white";
+            document.getElementById("rin-upper-button-about").style.color = "black";
+            document.getElementById("rin-upper-button-about").classList.remove(["btn-outline-light"])
+            document.getElementById("rin-upper-button-about").classList.add(["btn-outline-dark"])
+            document.getElementById("rin-upper-button-contributor").style.color = "black";
+            document.getElementById("rin-upper-button-contributor").classList.remove(["btn-outline-light"])
+            document.getElementById("rin-upper-button-contributor").classList.add(["btn-outline-dark"])
+            current_theme = "light"
+            }
+
+    function change_theme() {
+        if(current_theme == "dark") {
+            const RinTexts = document.querySelectorAll(".rin-text")
+            RinTexts.forEach(x => {
+                x.classList.remove("text-white")
+                x.classList.add("text-black")
+            })
+            const RinBgThemes = document.querySelectorAll(".rin-bg-theme")
+            RinBgThemes.forEach(x => {
+                x.classList.remove("rin-dark-bg")
+            })
+            document.getElementById("rin-below").style.backgroundColor = "white";
+            document.getElementById("rin-upper-button-about").style.color = "black";
+            document.getElementById("rin-upper-button-about").classList.remove(["btn-outline-light"])
+            document.getElementById("rin-upper-button-about").classList.add(["btn-outline-dark"])
+            document.getElementById("rin-upper-button-contributor").style.color = "black";
+            document.getElementById("rin-upper-button-contributor").classList.remove(["btn-outline-light"])
+            document.getElementById("rin-upper-button-contributor").classList.add(["btn-outline-dark"])
+            current_theme = "light"
+        } else if(current_theme == "light") {
+            const RinTexts = document.querySelectorAll(".rin-text")
+            RinTexts.forEach(x => {
+                x.classList.remove("text-black")
+                x.classList.add("text-white")
+            })
+            const RinBgThemes = document.querySelectorAll(".rin-bg-theme")
+            RinBgThemes.forEach(x => {
+                x.classList.add("rin-dark-bg")
+            })
+            document.getElementById("rin-below").style.backgroundColor = "black";
+            document.getElementById("rin-upper-button-about").style.color = "white";
+            document.getElementById("rin-upper-button-about").classList.remove(["btn-outline-dark"])
+            document.getElementById("rin-upper-button-about").classList.add(["btn-outline-light"])
+            document.getElementById("rin-upper-button-contributor").style.color = "white";
+            document.getElementById("rin-upper-button-contributor").classList.remove(["btn-outline-dark"])
+            document.getElementById("rin-upper-button-contributor").classList.add(["btn-outline-light"])
+            current_theme = "dark"
+        }
+    }
+</script>
