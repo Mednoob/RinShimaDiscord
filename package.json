@@ -1,56 +1,44 @@
 {
-  "name": "rin-shima-rewrite",
-  "version": "1.0.0",
+  "name": "rin-shima",
+  "version": "2.0.0-dev",
   "description": "",
-  "main": "src/Rin.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RinShimaProject/RinShimaDiscord.git"
   },
   "author": "Mednoob",
   "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/RinShimaProject/RinShimaDiscord/issues"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": "@zhycorp/eslint-config/typescript"
+  },
+  "homepage": "https://github.com/RinShimaProject/RinShimaDiscord#readme",
   "dependencies": {
-    "@azurapi/azurapi": "^0.2.13",
-    "@discordjs/opus": "^0.3.3",
-    "@endb/mongo": "^1.3.0",
-    "@jimp/bmp": "^0.16.1",
-    "@jimp/gif": "^0.16.1",
-    "@jimp/jpeg": "^0.16.1",
-    "@jimp/png": "^0.16.1",
-    "@jimp/tiff": "^0.16.1",
-    "@keyv/mongo": "^1.1.0",
-    "@lavacord/discord.js": "0.0.7",
-    "ascii-table": "0.0.9",
-    "axios": "^0.20.0",
-    "canvas": "^2.6.1",
-    "cheerio": "^1.0.0-rc.3",
-    "child_process": "^1.0.2",
-    "discord.js": "^12.5.1",
-    "ejs": "^3.1.5",
-    "endb": "^1.3.0",
-    "enmap": "^5.8.2",
-    "enmap-mongo": "^2.0.2",
-    "express": "^4.17.1",
-    "ffmpeg-static": "^4.2.7",
-    "fs": "0.0.1-security",
-    "glob": "^7.1.6",
-    "handlebars": "^4.7.6",
-    "http": "0.0.1-security",
-    "jimp": "^0.16.1",
-    "lavacord": "^1.1.9",
-    "moment": "^2.29.1",
-    "ojsama": "^1.2.5",
-    "os": "^0.1.1",
-    "pretty-bytes": "^5.4.1",
-    "pretty-ms": "^7.0.1",
-    "pretty-num": "^0.4.0",
-    "puppeteer": "^5.4.1",
-    "qs": "^6.9.4",
-    "raw-body": "^2.4.1",
-    "sharp": "^0.26.3",
-    "socket.io": "^3.0.1",
-    "turndown": "^7.0.0",
-    "util": "^0.12.3",
-    "xml-js": "^1.6.11"
+    "@azurapi/azurapi": "^1.0.5",
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.7.5",
+    "canvas": "^2.8.0",
+    "canvas-constructor": "^5.0.1",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "glob": "^7.2.0",
+    "got": "^11.8.3",
+    "turndown": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "@zhycorp/eslint-config": "^6.0.2",
+    "eslint": "^8.3.0"
   }
 }

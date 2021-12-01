@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "lib": [
+            "ESNext"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noEmitHelpers": true,
+        "importHelpers": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "src/typings"
+        ]
+    },
+    "exclude": [],
+    "include": [
+        "src/**/*.ts"
+    ],
+}
