@@ -22,6 +22,7 @@ export interface Rule34Post {
 export interface CategoryData {
     nsfw?: boolean;
     dev?: boolean;
+    path?: string;
     name: string;
     key: string;
 }

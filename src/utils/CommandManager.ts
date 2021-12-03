@@ -34,6 +34,7 @@ export class CommandManager {
                     try {
                         const data = await import(path) as { category?: CategoryData };
                         if (data.category) {
+                            data.category.path = sliced;
                             this.categories.set(data.category.key, data.category);
 
                             console.log(`Loaded category '${data.category.name}'`);
