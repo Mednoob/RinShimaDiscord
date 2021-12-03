@@ -1,7 +1,25 @@
-import { BaseGameplay as BG, OsuRank as OR, RawUserRecent, RawUserBest } from "../../typings";
+import { BaseGameplay as BG, OsuRank as OR, RawBeatmap, RawUserBest, RawUserRecent } from "../../typings";
 
+type OsuApproveStatus = "Graveyard"|"WIP"|"Pending"|"Ranked"|"Approved"|"Qualified"|"Loved";
 type OsuRank = "Silver SS"|"SS"|"Silver S"|"S"|"A"|"B"|"C"|"D"|"F";
 type OsuMode = "std"|"taiko"|"fruits"|"mania";
+
+const approveStatus: Record<RawBeatmap["approved"], OsuApproveStatus> = {
+    "-1": "WIP",
+    "-2": "Graveyard",
+    0: "Pending",
+    1: "Ranked",
+    2: "Approved",
+    3: "Qualified",
+    4: "Loved"
+};
+
+const modes: Record<RawBeatmap["mode"], OsuMode> = {
+    0: "std",
+    1: "taiko",
+    2: "fruits",
+    3: "mania"
+};
 
 const ranks: Record<OR, OsuRank> = {
     A: "A",
@@ -117,5 +135,91 @@ export class UserBest extends BaseGameplay {
         this.scoreId = raw.score_id;
         this.pp = parseInt(raw.pp);
         this.replayAvailable = raw.replay_available === "1";
+    }
+}
+
+export class Beatmap {
+    public readonly beatmapId: string;
+    public readonly beatmapSetId: string;
+    public readonly bpm: number;
+    public readonly creator: string;
+    public readonly creatorId: string;
+    public readonly difficulty: { drain: number; overall: number; size: number; aim: number; speed: number; approach: number };
+    public readonly difficultyName: string;
+    public readonly difficultyRating: number;
+    public readonly hitLength: number;
+    public readonly maxCombo: number;
+    public readonly submitDate: Date;
+    public readonly approvedDate: Date;
+    public readonly lastUpdate: Date;
+    public readonly artist: string;
+    public readonly source: string;
+    public readonly genreId: string;
+    public readonly languageId: string;
+    public readonly title: string;
+    public readonly totalLength: number;
+    public readonly hash: string;
+    public readonly tags: string[];
+    public readonly favouriteCount: number;
+    public readonly rating: number;
+    public readonly playCount: number;
+    public readonly passCount: number;
+    public readonly count: { normal: number; slider: number; spinner: number };
+    public readonly storyboard: boolean;
+    public readonly video: boolean;
+    public readonly downloadUnavailable: boolean;
+    public readonly audioUnavailable: boolean;
+
+    public constructor(public readonly raw: RawBeatmap) {
+        this.beatmapId = raw.beatmap_id;
+        this.beatmapSetId = raw.beatmapset_id;
+        this.bpm = parseFloat(raw.bpm);
+        this.creator = raw.creator;
+        this.creatorId = raw.creator_id;
+        this.difficulty = {
+            aim: parseFloat(raw.diff_aim),
+            approach: parseFloat(raw.diff_approach),
+            drain: parseFloat(raw.diff_drain),
+            overall: parseFloat(raw.diff_overall),
+            size: parseFloat(raw.diff_size),
+            speed: parseFloat(raw.diff_speed)
+        };
+        this.difficultyName = raw.version;
+        this.difficultyRating = parseFloat(raw.difficultyrating);
+        this.hitLength = parseInt(raw.hit_length);
+        this.maxCombo = parseInt(raw.max_combo);
+        this.submitDate = new Date(raw.submit_date);
+        this.approvedDate = new Date(raw.approved_date);
+        this.lastUpdate = new Date(raw.last_update);
+        this.artist = raw.artist;
+        this.source = raw.source;
+        this.genreId = raw.genre_id;
+        this.languageId = raw.language_id;
+        this.title = raw.title;
+        this.totalLength = parseInt(raw.total_length);
+        this.hash = raw.file_md5;
+        this.tags = raw.tags.split(" ");
+        this.favouriteCount = parseInt(raw.favourite_count);
+        this.rating = parseFloat(raw.rating);
+        this.playCount = parseInt(raw.playcount);
+        this.passCount = parseInt(raw.passcount);
+        this.count = {
+            normal: parseInt(raw.count_normal),
+            slider: parseInt(raw.count_slider),
+            spinner: parseInt(raw.count_spinner)
+        };
+        this.maxCombo = parseInt(raw.max_combo);
+        this.storyboard = raw.storyboard === "1";
+        this.video = raw.video === "1";
+        this.downloadUnavailable = raw.download_unavailable === "1";
+        this.audioUnavailable = raw.audio_unavailable === "1";
+    }
+
+    public get approveStatus(): OsuApproveStatus {
+        return approveStatus[this.raw.approved];
+    }
+
+    public get mode(): OsuMode {
+        return modes[this.raw.mode];
     }
 }
