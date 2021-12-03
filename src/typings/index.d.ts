@@ -87,6 +87,7 @@ export interface RawBeatmap {
     approved: "-2"|"-1"|"0"|"1"|"2"|"3"|"4";
     submit_date: string;
     approved_date: string;
+    last_update: string;
     artist: string;
     beatmap_id: string;
     beatmapset_id: string;
