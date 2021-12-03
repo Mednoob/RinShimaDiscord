@@ -4,7 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run lint && npm run compile",
+    "lint": "eslint . --ext .ts",
+    "compile": "tsc --build tsconfig.json",
+    "start": "node ."
   },
   "repository": {
     "type": "git",
@@ -32,9 +35,11 @@
     "dotenv": "^10.0.0",
     "glob": "^7.2.0",
     "got": "^11.8.3",
-    "turndown": "^7.1.1"
+    "turndown": "^7.1.1",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
+    "@types/glob": "^7.2.0",
     "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
