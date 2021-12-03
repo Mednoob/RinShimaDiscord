@@ -1,4 +1,5 @@
 import { BaseGameplay as BG, OsuRank as OR, RawBeatmap, RawUserBest, RawUserRecent } from "../../typings";
+import { ClientUtils } from "../ClientUtils";
 
 type OsuApproveStatus = "Graveyard"|"WIP"|"Pending"|"Ranked"|"Approved"|"Qualified"|"Loved";
 type OsuRank = "Silver SS"|"SS"|"Silver S"|"S"|"A"|"B"|"C"|"D"|"F";
@@ -222,4 +223,10 @@ export class Beatmap {
     public get mode(): OsuMode {
         return modes[this.raw.mode];
     }
+}
+
+export async function fetchUserRecent(username: string, mode: OsuMode): Promise<UserRecent[]> {
+    const raw = await ClientUtils.REST.get(`https://osu.ppy.sh/api/get_user_recent?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`).json<RawUserRecent[]>();
+
+    return raw.map(r => new UserRecent(r));
 }
