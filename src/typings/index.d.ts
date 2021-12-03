@@ -82,3 +82,44 @@ export interface RawUserRecent extends BaseGameplay {
 }
 
 export type RawUserBest = BaseGameplay;
+
+export interface RawBeatmap {
+    approved: "-2"|"-1"|"0"|"1"|"2"|"3"|"4";
+    submit_date: string;
+    approved_date: string;
+    artist: string;
+    beatmap_id: string;
+    beatmapset_id: string;
+    bpm: string;
+    creator: string;
+    creator_id: string;
+    difficultyrating: string;
+    diff_aim: string;
+    diff_speed: string;
+    diff_size: string;
+    diff_overall: string;
+    diff_approach: string;
+    diff_drain: string;
+    hit_length: string;
+    source: string;
+    genre_id: string;
+    language_id: string;
+    title: string;
+    total_length: string;
+    version: string;
+    file_md5: string;
+    mode: "0"|"1"|"2"|"3";
+    tags: string;
+    favourite_count: string;
+    rating: string;
+    playcount: string;
+    passcount: string;
+    count_normal: string;
+    count_slider: string;
+    count_spinner: string;
+    max_combo: string;
+    storyboard: "0"|"1";
+    video: "0"|"1";
+    download_unavailable: "0"|"1";
+    audio_unavailable: "0"|"1";
+}
