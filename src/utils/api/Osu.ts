@@ -230,3 +230,9 @@ export async function fetchUserRecent(username: string, mode: OsuMode): Promise<
 
     return raw.map(r => new UserRecent(r));
 }
+
+export async function fetchUserBest(username: string, mode: OsuMode): Promise<UserBest[]> {
+    const raw = await ClientUtils.REST.get(`https://osu.ppy.sh/api/get_user_best?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`).json<RawUserBest[]>();
+
+    return raw.map(r => new UserBest(r));
+}
