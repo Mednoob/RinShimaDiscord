@@ -69,7 +69,7 @@ export class CommandManager {
 
     public handle(message: Message): void {
         const query = message.content.substring(this.rin.config.prefix.length).trim();
-        const command = this.commands.sort((a, b) => (b.data.path ?? "").length - (a.data.path ?? "").length).find(cmd => cmd.data.regex ? new RegExp(cmd.data.regex, "i").test(query) : false);
+        const command = this.commands.sort((a, b) => (b.data.regex ?? "").length - (a.data.regex ?? "").length).find(cmd => cmd.data.regex ? new RegExp(cmd.data.regex, "i").test(query) : false);
 
         if (!command) return;
 
