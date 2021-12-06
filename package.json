@@ -35,12 +35,14 @@
     "dotenv": "^10.0.0",
     "glob": "^7.2.0",
     "got": "^11.8.3",
+    "sharp": "^0.29.3",
     "turndown": "^7.1.1",
     "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
     "@types/node": "^16.11.11",
+    "@types/sharp": "^0.29.4",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
     "@zhycorp/eslint-config": "^6.0.2",
