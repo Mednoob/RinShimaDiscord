@@ -16,7 +16,6 @@
         "emitDecoratorMetadata": true,
         "noEmitHelpers": true,
         "importHelpers": true,
-        "resolveJsonModule": true,
         "typeRoots": [
             "node_modules/@types",
             "src/typings"
