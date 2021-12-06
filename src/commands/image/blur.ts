@@ -25,7 +25,7 @@ export default class BlurCommand extends BaseCommand {
 
         try {
             const edited = await sharp(buff)
-                .blur(350)
+                .blur(5)
                 .png()
                 .toBuffer();
 
