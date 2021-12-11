@@ -1,5 +1,7 @@
 import { Collection, CommandInteractionOption, Interaction, InteractionReplyOptions, Message, ReplyMessageOptions } from "discord.js";
 
+export type ContextType = "autocomplete"|"user_context"|"message_context"|"button"|"select_menu"|"slash"|"message"|"unknown";
+
 export class CommandQueryContext {
     public readonly additionalArgs: Collection<string, symbol|object> = new Collection();
 
@@ -9,6 +11,20 @@ export class CommandQueryContext {
         if ((this.context as { reply?: (...a: any[]) => any }).reply) {
             return (this.context as { reply: (...a: any[]) => any }).reply(options);
         }
+    }
+
+    public get type(): ContextType {
+        if (this.isMessage()) return "message";
+        if (this.isInteraction()) {
+            if (this.context.isCommand()) return "slash";
+            if (this.context.isAutocomplete()) return "autocomplete";
+            if (this.context.isButton()) return "button";
+            if (this.context.isSelectMenu()) return "select_menu";
+            if (this.context.isContextMenu()) return "user_context";
+            if (this.context.isMessageComponent()) return "message_context";
+        }
+
+        return "unknown";
     }
 
     public get options(): CommandInteractionOption|undefined {
