@@ -26,15 +26,15 @@
   },
   "homepage": "https://github.com/RinShimaProject/RinShimaDiscord#readme",
   "dependencies": {
-    "@azurapi/azurapi": "^1.0.5",
-    "@discordjs/opus": "^0.5.3",
-    "@discordjs/voice": "^0.7.5",
-    "canvas": "^2.8.0",
-    "canvas-constructor": "^5.0.1",
-    "discord.js": "^13.3.1",
-    "dotenv": "^10.0.0",
+    "@azurapi/azurapi": "^1.0.6",
+    "@discordjs/opus": "^0.7.0",
+    "@discordjs/voice": "^0.8.0",
+    "canvas": "^2.9.0",
+    "canvas-constructor": "^5.0.2",
+    "discord.js": "^13.6.0",
+    "dotenv": "^15.0.0",
     "glob": "^7.2.0",
-    "got": "^11.8.3",
+    "got": "^12.0.1",
     "sharp": "^0.29.3",
     "turndown": "^7.1.1",
     "typeorm": "^0.2.41",
@@ -42,11 +42,11 @@
   },
   "devDependencies": {
     "@types/glob": "^7.2.0",
-    "@types/node": "^16.11.11",
-    "@types/sharp": "^0.29.4",
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^5.5.0",
-    "@zhycorp/eslint-config": "^6.0.2",
-    "eslint": "^8.3.0"
+    "@types/node": "^17.0.13",
+    "@types/sharp": "^0.29.5",
+    "@typescript-eslint/eslint-plugin": "^5.10.2",
+    "@typescript-eslint/parser": "^5.10.2",
+    "@zhycorp/eslint-config": "^7.1.1",
+    "eslint": "^8.8.0"
   }
 }
