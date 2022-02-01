@@ -11,13 +11,17 @@ export class InteractionCheckerManager {
     public constructor(public readonly rin: Rin, private readonly basePath: string) {}
 
     public async load(): Promise<void> {
-        const files = readdirSync(this.basePath);
+        try {
+            const files = readdirSync(this.basePath);
 
-        for (const file of files) {
-            const fileData = await import(resolve(this.basePath, file));
-            if (!fileData.default) continue;
+            for (const file of files) {
+                const fileData = await import(resolve(this.basePath, file));
+                if (!fileData.default) continue;
 
-            this.checkers.push(fileData.default as InteractionChecker);
+                this.checkers.push(fileData.default as InteractionChecker);
+            }
+        } catch {
+            console.log("Failed to load interaction checkers");
         }
     }
 }
