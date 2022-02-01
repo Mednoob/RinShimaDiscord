@@ -15,10 +15,10 @@ export class InteractionCheckerManager {
             const files = readdirSync(this.basePath);
 
             for (const file of files) {
-                const fileData = await import(resolve(this.basePath, file));
+                const fileData = (await import(resolve(this.basePath, file))) as { default: InteractionChecker | undefined };
                 if (!fileData.default) continue;
 
-                this.checkers.push(fileData.default as InteractionChecker);
+                this.checkers.push(fileData.default);
             }
         } catch {
             console.log("Failed to load interaction checkers");

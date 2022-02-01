@@ -1,13 +1,24 @@
-import { AutocompleteInteraction, ButtonInteraction, Collection, CommandInteraction, CommandInteractionOption, Interaction, InteractionReplyOptions, Message, ReplyMessageOptions, SelectMenuInteraction } from "discord.js";
+import {
+    AutocompleteInteraction,
+    ButtonInteraction,
+    Collection,
+    CommandInteraction,
+    CommandInteractionOption,
+    Interaction,
+    InteractionReplyOptions,
+    Message,
+    ReplyMessageOptions,
+    SelectMenuInteraction
+} from "discord.js";
 
-export type ContextType = "autocomplete"|"user_context"|"message_context"|"button"|"select_menu"|"slash"|"message";
+export type ContextType = "autocomplete" | "button" | "message_context" | "message" | "select_menu" | "slash" | "user_context";
 
 export class CommandQueryContext {
-    public readonly additionalArgs: Collection<string, symbol|object> = new Collection();
+    public readonly additionalArgs: Collection<string, object | symbol> = new Collection();
 
-    public constructor(public readonly context: Message|Interaction, public readonly args: string[]) {}
+    public constructor(public readonly context: Interaction | Message, public readonly args: string[]) {}
 
-    public async reply(options: InteractionReplyOptions|ReplyMessageOptions): Promise<Message|void> {
+    public reply(options: InteractionReplyOptions | ReplyMessageOptions): Promise<Message> | undefined {
         if ((this.context as { reply?: (...a: any[]) => any }).reply) {
             return (this.context as { reply: (...a: any[]) => any }).reply(options);
         }
@@ -26,13 +37,13 @@ export class CommandQueryContext {
         return "message";
     }
 
-    public get options(): CommandInteractionOption|undefined {
+    public get options(): CommandInteractionOption | undefined {
         return (this.context as { options?: CommandInteractionOption }).options;
     }
 
-    public get respond(): AutocompleteInteraction["respond"]|undefined {
+    public get respond(): AutocompleteInteraction["respond"] | undefined {
         if (this.type === "autocomplete") {
-            return (this.context as AutocompleteInteraction).respond;
+            return (this.context as AutocompleteInteraction).respond.bind(this.context);
         }
     }
 
@@ -45,9 +56,30 @@ export class CommandQueryContext {
     }
 }
 
-export type InteractionCommandQueryContext = CommandQueryContext & { context: Interaction; reply: (options: InteractionReplyOptions) => Promise<Message|void>; type: Exclude<ContextType, "message"> };
-export type AutocompleteCommandQueryContext = InteractionCommandQueryContext & { context: AutocompleteInteraction; respond: AutocompleteInteraction["respond"]; type: "autocomplete" };
-export type ButtonCommandQueryContext = InteractionCommandQueryContext & { context: ButtonInteraction; type: "button" };
-export type SelectMenuCommandQueryContext = InteractionCommandQueryContext & { context: SelectMenuInteraction; type: "select_menu" };
-export type CommandBasedCommandQueryContext = InteractionCommandQueryContext & { context: CommandInteraction; type: "slash"|"user_context"|"message_context" };
-export type MessageCommandQueryContext = CommandQueryContext & { context: Message; reply: (options: ReplyMessageOptions) => Promise<Message|void>; type: "message"};
+export type InteractionCommandQueryContext = CommandQueryContext & {
+    context: Interaction;
+    reply: (options: InteractionReplyOptions) => Promise<Message> | undefined;
+    type: Exclude<ContextType, "message">;
+};
+export type AutocompleteCommandQueryContext = InteractionCommandQueryContext & {
+    context: AutocompleteInteraction;
+    respond: AutocompleteInteraction["respond"];
+    type: "autocomplete";
+};
+export type ButtonCommandQueryContext = InteractionCommandQueryContext & {
+    context: ButtonInteraction;
+    type: "button";
+};
+export type SelectMenuCommandQueryContext = InteractionCommandQueryContext & {
+    context: SelectMenuInteraction;
+    type: "select_menu";
+};
+export type CommandBasedCommandQueryContext = InteractionCommandQueryContext & {
+    context: CommandInteraction;
+    type: "message_context" | "slash" | "user_context";
+};
+export type MessageCommandQueryContext = CommandQueryContext & {
+    context: Message;
+    reply: (options: ReplyMessageOptions) => Promise<Message> | undefined;
+    type: "message";
+};

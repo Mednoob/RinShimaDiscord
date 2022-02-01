@@ -9,7 +9,7 @@ export default class StatsCommand extends BaseCommand {
         });
     }
 
-    public async execute(ctx: CommandQueryContext): Promise<void> {
+    public execute(ctx: CommandQueryContext): void {
         void ctx.reply({
             embeds: [
                 this.rin.utils.createEmbed("info")

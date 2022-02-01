@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface Rule34Post {
     rating: "explicit" | "questionable" | "safe";
     sample_height: number;
@@ -45,7 +46,7 @@ export interface TextCommandQuery extends BaseCommandQuery {
 }
 
 export type CommandQuery = TextCommandQuery;
-export type OsuRank = "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D" | "F";
+export type OsuRank = "A" | "B" | "C" | "D" | "F" | "S" | "SH" | "X" | "XH";
 
 interface BaseOsuData {
     countgeki: string;
@@ -58,11 +59,11 @@ interface BaseOsuData {
 }
 
 interface BaseGameplay extends BaseOsuData {
-    replay_available: "0"|"1";
+    replay_available: "0" | "1";
     enabled_mods: string;
     beatmap_id: string;
     maxcombo: string;
-    perfect: "0"|"1";
+    perfect: "0" | "1";
     score_id: string;
     rank: OsuRank;
     score: string;
@@ -84,23 +85,23 @@ export interface RawUserRecent extends BaseGameplay {
 export type RawUserBest = BaseGameplay;
 
 export interface RawBeatmap {
-    approved: "-2"|"-1"|"0"|"1"|"2"|"3"|"4";
-    download_unavailable: "0"|"1";
-    audio_unavailable: "0"|"1";
+    approved: "-1" | "-2" | "0" | "1" | "2" | "3" | "4";
+    download_unavailable: "0" | "1";
+    audio_unavailable: "0" | "1";
     difficultyrating: string;
     favourite_count: string;
     approved_date: string;
     beatmapset_id: string;
     diff_approach: string;
     count_spinner: string;
-    mode: "0"|"1"|"2"|"3";
+    mode: "0" | "1" | "2" | "3";
     count_normal: string;
     count_slider: string;
     diff_overall: string;
     total_length: string;
     language_id: string;
     last_update: string;
-    storyboard: "0"|"1";
+    storyboard: "0" | "1";
     submit_date: string;
     beatmap_id: string;
     creator_id: string;
@@ -119,7 +120,7 @@ export interface RawBeatmap {
     artist: string;
     rating: string;
     source: string;
-    video: "0"|"1";
+    video: "0" | "1";
     title: string;
     tags: string;
     bpm: string;

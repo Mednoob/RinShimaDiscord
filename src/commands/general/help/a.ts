@@ -11,7 +11,7 @@ export default class HelpCommand extends BaseCommand {
 
     public execute(context: CommandQueryContext): void {
         void context.reply({
-            content: `Hello! This is Help A`
+            content: "Hello! This is Help A"
         });
     }
 }

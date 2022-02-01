@@ -2,7 +2,7 @@ import { createConnection, Connection } from "typeorm";
 import { resolve } from "path";
 
 export class Database<Ready extends boolean = false> {
-    private connection!: Ready extends true ? Connection : (Connection|undefined);
+    private connection!: Ready extends true ? Connection : (Connection | undefined);
 
     public async connect(): Promise<Database<true>> {
         this.connection = await createConnection({

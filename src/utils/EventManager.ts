@@ -10,11 +10,12 @@ export class EventManager {
         const files = readdirSync(this.basePath);
 
         for (const file of files) {
-            const fileData = await import(resolve(this.basePath, file));
+            const fileData = (await import(resolve(this.basePath, file))) as Record<string, (new (rin: this["rin"]) => BaseEvent<"message">) | undefined>;
+            const cnstrctr = fileData[file.slice(0, -3)];
 
-            if (!fileData[file.slice(0, -3)]) continue;
+            if (!cnstrctr) continue;
 
-            const event = (new fileData[file.slice(0, -3)](this.rin)) as BaseEvent<"message">;
+            const event = new cnstrctr(this.rin);
             this.rin.addListener(event.name, event.run.bind(event));
             console.info(`Loaded event ${event.name}`);
         }

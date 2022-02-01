@@ -15,10 +15,10 @@ export class MessageCheckerManager {
             const files = readdirSync(this.basePath);
 
             for (const file of files) {
-                const fileData = await import(resolve(this.basePath, file));
+                const fileData = (await import(resolve(this.basePath, file))) as { default: MessageChecker | undefined };
                 if (!fileData.default) continue;
 
-                this.checkers.push(fileData.default as MessageChecker);
+                this.checkers.push(fileData.default);
             }
         } catch {
             console.log("Failed to load message checkers");

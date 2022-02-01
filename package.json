@@ -22,7 +22,10 @@
     "parserOptions": {
       "project": "./tsconfig.json"
     },
-    "extends": "@zhycorp/eslint-config/typescript"
+    "extends": "@zhycorp/eslint-config/typescript",
+    "rules": {
+      "class-methods-use-this": "off"
+    }
   },
   "homepage": "https://github.com/RinShimaProject/RinShimaDiscord#readme",
   "dependencies": {

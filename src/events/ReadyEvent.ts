@@ -9,6 +9,6 @@ export class ReadyEvent extends BaseEvent {
         console.log(`Logged in as ${this.rin.user!.tag}`);
         void this.rin.checkers.message.load();
         void this.rin.checkers.interaction.load();
-        void this.rin.commands.load();
+        this.rin.commands.load();
     }
 }

@@ -6,6 +6,7 @@ import { Collection, Message } from "discord.js";
 import { resolve } from "path";
 import { glob } from "glob";
 
+// eslint-disable-next-line prefer-named-capture-group
 const categoryPathRegex = /(\/)?.*?\/\[category\](.js|.ts)/;
 
 export class CommandManager {

@@ -2,7 +2,7 @@ import { ColorResolvable, MessageEmbed } from "discord.js";
 import { URL } from "url";
 import got from "got";
 
-type embedColorType = "info" | "success" | "warning" | "danger";
+type embedColorType = "danger" | "info" | "success" | "warning";
 const embedColors: Record<embedColorType, string> = {
     info: "3CAAFF",
     success: "GREEN",
@@ -28,10 +28,10 @@ function isUrl(str: string): boolean {
 }
 
 export class ClientUtils {
-    public static readonly createEmbed = createEmbed;
-    public static readonly isUrl = isUrl;
-    public static readonly REST = got;
     public readonly createEmbed = createEmbed;
     public readonly isUrl = isUrl;
     public readonly REST = got;
+    public static readonly createEmbed = createEmbed;
+    public static readonly isUrl = isUrl;
+    public static readonly REST = got;
 }

@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-extra-parens */
+/* eslint-disable max-classes-per-file */
 import { BaseGameplay as BG, OsuRank as OR, RawBeatmap, RawUserBest, RawUserRecent } from "../../typings";
 import { ClientUtils } from "../ClientUtils";
 
-type OsuApproveStatus = "Graveyard"|"WIP"|"Pending"|"Ranked"|"Approved"|"Qualified"|"Loved";
-type OsuRank = "Silver SS"|"SS"|"Silver S"|"S"|"A"|"B"|"C"|"D"|"F";
-type OsuMode = "std"|"taiko"|"fruits"|"mania";
+type OsuApproveStatus = "Approved" | "Graveyard" | "Loved" | "Pending" | "Qualified" | "Ranked" | "WIP";
+type OsuRank = "A" | "B" | "C" | "D" | "F" | "S" | "Silver S" | "Silver SS" | "SS";
+type OsuMode = "fruits" | "mania" | "std" | "taiko";
 
 const approveStatus: Record<RawBeatmap["approved"], OsuApproveStatus> = {
     "-1": "WIP",
@@ -108,14 +110,55 @@ abstract class BaseGameplay {
 
     public getAccuracy(mode: OsuMode): number {
         if (mode === "mania") {
-            return ((300 * (this.count["300"] + this.count.geki)) + (100 * this.count["100"]) + (50 * this.count["50"])) / (300 * (this.count.geki + this.count["300"] + this.count.katu + this.count["100"] + this.count["50"] + this.count.miss));
+            return (
+                (300 * (this.count["300"] + this.count.geki)) +
+                (100 * this.count["100"]) +
+                (50 * this.count["50"])
+            ) / (
+                300 * (
+                    this.count.geki +
+                    this.count["300"] +
+                    this.count.katu +
+                    this.count["100"] +
+                    this.count["50"] +
+                    this.count.miss
+                )
+            );
         } else if (mode === "fruits") {
-            return (this.count["300"] + this.count["100"] + this.count["50"]) / (this.count["300"] + this.count["100"] + this.count["50"] + this.count.miss + this.count.katu);
+            return (
+                this.count["300"] +
+                this.count["100"] +
+                this.count["50"]
+            ) / (
+                this.count["300"] +
+                this.count["100"] +
+                this.count["50"] +
+                this.count.miss +
+                this.count.katu
+            );
         } else if (mode === "taiko") {
-            return ((0.5 * this.count["300"]) + this.count["100"]) / (this.count["300"] + this.count["100"] + this.count.miss);
+            return (
+                (0.5 * this.count["300"]) +
+                this.count["100"]
+            ) / (
+                this.count["300"] +
+                this.count["100"] +
+                this.count.miss
+            );
         }
 
-        return ((300 * this.count["300"]) + (100 * this.count["100"]) + (50 * this.count["50"])) / (300 * (this.count["300"] + this.count["100"] + this.count["50"] + this.count.miss));
+        return (
+            (300 * this.count["300"]) +
+            (100 * this.count["100"]) +
+            (50 * this.count["50"])
+        ) / (
+            300 * (
+                this.count["300"] +
+                this.count["100"] +
+                this.count["50"] +
+                this.count.miss
+            )
+        );
     }
 }
 
@@ -226,13 +269,17 @@ export class Beatmap {
 }
 
 export async function fetchUserRecent(username: string, mode: OsuMode): Promise<UserRecent[]> {
-    const raw = await ClientUtils.REST.get(`https://osu.ppy.sh/api/get_user_recent?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`).json<RawUserRecent[]>();
+    const raw = await ClientUtils.REST
+        .get(`https://osu.ppy.sh/api/get_user_recent?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`)
+        .json<RawUserRecent[]>();
 
     return raw.map(r => new UserRecent(r));
 }
 
 export async function fetchUserBest(username: string, mode: OsuMode): Promise<UserBest[]> {
-    const raw = await ClientUtils.REST.get(`https://osu.ppy.sh/api/get_user_best?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`).json<RawUserBest[]>();
+    const raw = await ClientUtils.REST
+        .get(`https://osu.ppy.sh/api/get_user_best?k=${process.env.OSU_API_KEY!}&u=${username}&m=${Object.keys(modes).find(key => modes[key as RawBeatmap["mode"]] === mode)!}`)
+        .json<RawUserBest[]>();
 
     return raw.map(r => new UserBest(r));
 }
