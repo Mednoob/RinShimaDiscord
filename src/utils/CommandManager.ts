@@ -4,7 +4,7 @@ import { BaseCommand } from "../structures/BaseCommand";
 import { Rin } from "../structures/Rin";
 import { Collection, Message } from "discord.js";
 import { resolve } from "path";
-import glob from "glob";
+import { glob } from "glob";
 
 const categoryPathRegex = /(\/)?.*?\/\[category\](.js|.ts)/;
 
@@ -17,7 +17,7 @@ export class CommandManager {
 
     public constructor(private readonly basePath: string, public readonly rin: Rin) {}
 
-    public async load(): Promise<void> {
+    public load(): void {
         this.categories.clear();
         this.commands.clear();
 
@@ -49,20 +49,22 @@ export class CommandManager {
                 }
 
                 try {
-                    const cmdConstructor = await import(path).then(m => m.default);
+                    const cmdConstructor = await import(path).then(m => (m as { default: (new (rin: BaseCommand["rin"]) => BaseCommand) | undefined }).default);
                     if (!cmdConstructor) {
                         throw Error("Command data is not defined");
                     }
 
-                    const cmd = (new cmdConstructor(this.rin)) as BaseCommand;
-                    cmd.data.regex = `${paths.slice(2, paths.length).join(" ").trim()
+                    const cmd = new cmdConstructor(this.rin);
+                    const slicedPaths = paths.slice(2, paths.length);
+                    cmd.data.regex = `${slicedPaths.join(" ")
+                        .trim()
                         .replace(/\.ts|\.js/, "")}(.*)`;
                     cmd.data.path = path;
 
                     this.commands.set(cmd.data.path, cmd);
                     console.info(`Loaded command '${cmd.data.query}'`);
-                } catch (err) {
-                    console.error(`Failed to load command at '${path}'. Reason: ${(err as Error).message}'`);
+                } catch (erro) {
+                    console.error(`Failed to load command at '${path}'. Reason: ${(erro as Error).message}'`);
                 }
             }
         });
@@ -70,12 +72,29 @@ export class CommandManager {
 
     public handle(message: Message): void {
         const query = message.content.substring(this.rin.config.prefix.length).trim();
-        const command = this.commands.sort((a, b) => (b.data.regex ?? "").length - (a.data.regex ?? "").length).find(cmd => cmd.data.regex ? new RegExp(cmd.data.regex, "i").test(query) : false);
+        const command = this.commands
+            .sort((a, b) => (b.data.regex ?? "").length - (a.data.regex ?? "").length)
+            .find(cmd => {
+                if (!cmd.data.regex) return false;
+
+                const regexRes = new RegExp(cmd.data.regex, "i").exec(query);
+                if (!regexRes) return false;
+
+                const argsLength = (regexRes[1] as string | undefined)?.length ?? 0;
+                const start = regexRes[0].slice(0, argsLength ? argsLength * -1 : undefined);
+                const slic = query.slice(start.length);
+
+                return query.startsWith(start) && (
+                    slic.length
+                        ? slic.startsWith(" ")
+                        : true
+                );
+            });
 
         if (!command) return;
 
         try {
-            const context = new CommandQueryContext(message, (new RegExp(command.data.regex!).exec(query)![1] as string|undefined)?.trim().split(" ") ?? []);
+            const context = new CommandQueryContext(message, (new RegExp(command.data.regex!).exec(query)![1] as string | undefined)?.trim().split(" ") ?? []);
             void command.execute(context);
         } finally {
             console.log(`${message.author.tag} used command ${command.data.query} (${command.data.path ?? "?"})`);
