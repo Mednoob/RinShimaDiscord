@@ -134,3 +134,5 @@ export interface RawBeatmap {
     tags: string;
     bpm: string;
 }
+
+export type MethodDecorator<Target, Result> = (target: Target, propertyKey: string, descriptor: PropertyDescriptor) => Result;
