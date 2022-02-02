@@ -4,6 +4,7 @@ import {
     Collection,
     CommandInteraction,
     CommandInteractionOption,
+    GuildMember,
     Interaction,
     InteractionReplyOptions,
     Message,
@@ -52,6 +53,10 @@ export class CommandQueryContext {
         if (this.type === "autocomplete") {
             return (this.context as AutocompleteInteraction).respond.bind(this.context);
         }
+    }
+
+    public get member(): GuildMember | null {
+        return this.context.member as GuildMember | null;
     }
 
     public isInteraction(): this is InteractionCommandQueryContext {
