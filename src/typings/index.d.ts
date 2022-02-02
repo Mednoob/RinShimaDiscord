@@ -46,7 +46,16 @@ export interface TextCommandQuery extends BaseCommandQuery {
 }
 
 export type CommandQuery = TextCommandQuery;
-export type OsuRank = "A" | "B" | "C" | "D" | "F" | "S" | "SH" | "X" | "XH";
+export type OsuRank =
+    | "A"
+    | "B"
+    | "C"
+    | "D"
+    | "F"
+    | "S"
+    | "SH"
+    | "X"
+    | "XH";
 
 interface BaseOsuData {
     countgeki: string;

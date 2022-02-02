@@ -2,7 +2,11 @@ import { ColorResolvable, MessageEmbed } from "discord.js";
 import { URL } from "url";
 import got from "got";
 
-type embedColorType = "danger" | "info" | "success" | "warning";
+type embedColorType =
+    | "danger"
+    | "info"
+    | "success"
+    | "warning";
 const embedColors: Record<embedColorType, string> = {
     info: "3CAAFF",
     success: "GREEN",

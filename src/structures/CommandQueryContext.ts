@@ -11,7 +11,14 @@ import {
     SelectMenuInteraction
 } from "discord.js";
 
-export type ContextType = "autocomplete" | "button" | "message_context" | "message" | "select_menu" | "slash" | "user_context";
+export type ContextType =
+    | "autocomplete"
+    | "button"
+    | "message_context"
+    | "message"
+    | "select_menu"
+    | "slash"
+    | "user_context";
 
 export class CommandQueryContext {
     public readonly additionalArgs: Collection<string, object | symbol> = new Collection();

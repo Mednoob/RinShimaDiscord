@@ -3,8 +3,24 @@
 import { BaseGameplay as BG, OsuRank as OR, RawBeatmap, RawUserBest, RawUserRecent } from "../../typings";
 import { ClientUtils } from "../ClientUtils";
 
-type OsuApproveStatus = "Approved" | "Graveyard" | "Loved" | "Pending" | "Qualified" | "Ranked" | "WIP";
-type OsuRank = "A" | "B" | "C" | "D" | "F" | "S" | "Silver S" | "Silver SS" | "SS";
+type OsuApproveStatus =
+    | "Approved"
+    | "Graveyard"
+    | "Loved"
+    | "Pending"
+    | "Qualified"
+    | "Ranked"
+    | "WIP";
+type OsuRank =
+    | "A"
+    | "B"
+    | "C"
+    | "D"
+    | "F"
+    | "S"
+    | "Silver S"
+    | "Silver SS"
+    | "SS";
 type OsuMode = "fruits" | "mania" | "std" | "taiko";
 
 const approveStatus: Record<RawBeatmap["approved"], OsuApproveStatus> = {
