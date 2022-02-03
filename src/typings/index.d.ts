@@ -137,3 +137,4 @@ export interface RawBeatmap {
 
 export type MethodDecorator<Target, Result> = (target: Target, propertyKey: string, descriptor: PropertyDescriptor) => Result;
 export type ClassDecorator<Target extends (abstract new (...args: any[]) => unknown) | (new (...args: any[]) => unknown), Result = unknown> = (target: Target) => Result;
+export type Promisable<Output> = Output | Promise<Output>;
