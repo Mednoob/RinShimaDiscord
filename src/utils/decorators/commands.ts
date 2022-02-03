@@ -1,5 +1,5 @@
 import { BaseCommand } from "../../structures/BaseCommand";
-import { MethodDecorator } from "../../typings";
+import { ClassDecorator, CommandQuery, MethodDecorator } from "../../typings";
 import { PermissionString } from "discord.js";
 
 export function requirePermissions(permissions: PermissionString[]): MethodDecorator<BaseCommand, void> {
@@ -16,4 +16,14 @@ export function requirePermissions(permissions: PermissionString[]): MethodDecor
             return originalMethod.apply(this, [context]);
         };
     };
+}
+
+type ExtendedCommandConstructor = new (...args: ConstructorParameters<typeof BaseCommand>) => BaseCommand;
+export function Query(query: CommandQuery): ClassDecorator<ExtendedCommandConstructor, ExtendedCommandConstructor> {
+    return target => new Proxy(target, {
+        construct: (
+            trgt,
+            args: [BaseCommand["rin"]]
+        ) => new (trgt as new (rin: BaseCommand["rin"], query: CommandQuery) => BaseCommand)(...args, query)
+    });
 }

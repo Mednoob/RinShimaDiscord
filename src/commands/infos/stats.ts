@@ -1,14 +1,12 @@
 import { BaseCommand } from "../../structures/BaseCommand";
 import { CommandQueryContext } from "../../structures/CommandQueryContext";
+import { Query } from "../../utils/decorators/commands";
 
+@Query({
+    query: "stats",
+    type: "text"
+})
 export default class StatsCommand extends BaseCommand {
-    public constructor(rin: BaseCommand["rin"]) {
-        super(rin, {
-            query: "stats",
-            type: "text"
-        });
-    }
-
     public execute(ctx: CommandQueryContext): void {
         void ctx.reply({
             embeds: [

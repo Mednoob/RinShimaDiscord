@@ -1,17 +1,15 @@
 import { BaseCommand } from "../../structures/BaseCommand";
 import { CommandQueryContext } from "../../structures/CommandQueryContext";
+import { Query } from "../../utils/decorators/commands";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import { glob } from "glob";
 
+@Query({
+    query: "totalcode",
+    type: "text"
+})
 export default class TotalCodeCommand extends BaseCommand {
-    public constructor(rin: BaseCommand["rin"]) {
-        super(rin, {
-            query: "totalcode",
-            type: "text"
-        });
-    }
-
     public execute(context: CommandQueryContext): void {
         glob(resolve(__dirname, "..", "..", "**", "*.{js,ts}"), (err, files) => {
             if (err) {

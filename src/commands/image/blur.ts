@@ -1,16 +1,14 @@
 import { BaseCommand } from "../../structures/BaseCommand";
 import { CommandQueryContext } from "../../structures/CommandQueryContext";
+import { Query } from "../../utils/decorators/commands";
 import { MessageAttachment } from "discord.js";
 import sharp from "sharp";
 
+@Query({
+    query: "blur",
+    type: "text"
+})
 export default class BlurCommand extends BaseCommand {
-    public constructor(rin: BaseCommand["rin"]) {
-        super(rin, {
-            query: "blur",
-            type: "text"
-        });
-    }
-
     public async execute(ctx: CommandQueryContext): Promise<void> {
         const url = (
             ctx.isMessage()
