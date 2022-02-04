@@ -36,6 +36,6 @@ export function Query(query: CommandQuery): ClassDecorator<ExtendedCommandConstr
         construct: (
             trgt,
             args: [BaseCommand["rin"]]
-        ) => new (trgt as new (rin: BaseCommand["rin"], query: CommandQuery) => BaseCommand)(...args, query)
+        ) => new trgt(...args, query)
     });
 }
