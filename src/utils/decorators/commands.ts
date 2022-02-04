@@ -30,6 +30,10 @@ export function requirePermissions(permissions: PermissionString[]): MethodDecor
     });
 }
 
+export function devOnly(): MethodDecorator<BaseCommand, void> {
+    return createQueryExecutionDecorator((query, ctx) => query.rin.config.devs.includes(ctx.author.id));
+}
+
 type ExtendedCommandConstructor = new (...args: ConstructorParameters<typeof BaseCommand>) => BaseCommand;
 export function Query(query: CommandQuery): ClassDecorator<ExtendedCommandConstructor, ExtendedCommandConstructor> {
     return target => new Proxy(target, {
