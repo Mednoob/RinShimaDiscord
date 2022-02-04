@@ -15,6 +15,10 @@ const repl = start({
 
 repl.context.shardManager = shardManager;
 
+process.stdin.on("data", _ => {
+    repl.displayPrompt(true);
+});
+
 void shardManager.on("shardCreate", shard => {
     console.info(`[ShardManager] Shard #${shard.id} Spawned.`);
 }).spawn();
