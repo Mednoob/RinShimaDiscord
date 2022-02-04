@@ -5,8 +5,7 @@ import { MessageAttachment } from "discord.js";
 import sharp from "sharp";
 
 @Query({
-    query: "blur",
-    type: "text"
+    identifier: "Blur"
 })
 export default class BlurCommand extends BaseCommand {
     public async execute(ctx: CommandQueryContext): Promise<void> {

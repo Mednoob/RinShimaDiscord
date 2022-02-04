@@ -5,8 +5,7 @@ import { MessageAttachment } from "discord.js";
 import sharp from "sharp";
 
 @Query({
-    query: "flip",
-    type: "text"
+    identifier: "Flip"
 })
 export default class FlipCommand extends BaseCommand {
     public async execute(ctx: CommandQueryContext): Promise<void> {

@@ -6,8 +6,7 @@ import { resolve } from "path";
 import { glob } from "glob";
 
 @Query({
-    query: "totalcode",
-    type: "text"
+    identifier: "Total Code"
 })
 export default class TotalCodeCommand extends BaseCommand {
     public execute(context: CommandQueryContext): void {

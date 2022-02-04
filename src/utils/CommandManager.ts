@@ -63,7 +63,7 @@ export class CommandManager {
                     cmd.data.path = path;
 
                     this.commands.set(cmd.data.path, cmd);
-                    console.info(`Loaded command '${cmd.data.query}'`);
+                    console.info(`Loaded '${cmd.data.identifier}' command`);
                 } catch (erro) {
                     console.error(`Failed to load command at '${path}'. Reason: ${(erro as Error).message}'`);
                 }
@@ -98,7 +98,7 @@ export class CommandManager {
             const context = new CommandQueryContext(message, (new RegExp(command.data.regex!).exec(query)![1] as string | undefined)?.trim().split(" ") ?? []);
             void command.execute(context);
         } finally {
-            console.log(`${message.author.tag} used command ${command.data.query} (${command.data.path ?? "?"})`);
+            console.log(`${message.author.tag} used ${command.data.identifier} command`);
         }
     }
 }

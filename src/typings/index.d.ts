@@ -28,24 +28,15 @@ export interface CategoryData {
     key: string;
 }
 
-export interface BaseCommandQuery {
+export interface CommandQuery {
     regex?: string;
     path?: string;
-}
-
-export interface TextCommandQuery extends BaseCommandQuery {
-    categoryKey?: string;
     description?: string;
     aliases?: string[];
-    slash?: boolean;
-    nsfw?: boolean;
     usage?: string;
-    dev?: boolean;
-    query: string;
-    type: "text";
+    identifier: string;
 }
 
-export type CommandQuery = TextCommandQuery;
 export type OsuRank =
     | "A"
     | "B"

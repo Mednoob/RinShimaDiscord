@@ -3,8 +3,7 @@ import { CommandQueryContext } from "../../structures/CommandQueryContext";
 import { Query } from "../../utils/decorators/commands";
 
 @Query({
-    query: "owoify",
-    type: "text"
+    identifier: "OwOify"
 })
 export default class OwOifyCommand extends BaseCommand {
     public execute(ctx: CommandQueryContext): void {

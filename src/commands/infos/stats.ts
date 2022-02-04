@@ -3,8 +3,7 @@ import { CommandQueryContext } from "../../structures/CommandQueryContext";
 import { Query } from "../../utils/decorators/commands";
 
 @Query({
-    query: "stats",
-    type: "text"
+    identifier: "Stats"
 })
 export default class StatsCommand extends BaseCommand {
     public execute(ctx: CommandQueryContext): void {
