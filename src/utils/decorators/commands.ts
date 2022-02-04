@@ -30,17 +30,15 @@ export function requirePermissions(permissions: PermissionString[]): MethodDecor
     });
 }
 
-export function devOnly(): MethodDecorator<BaseCommand, void> {
-    return createQueryExecutionDecorator((query, ctx) => query.rin.config.devs.includes(ctx.author.id));
-}
+export const devOnly = createQueryExecutionDecorator(
+    (query, ctx) => query.rin.config.devs.includes(ctx.author.id)
+);
 
-export function nsfwOnly(): MethodDecorator<BaseCommand, void> {
-    return createQueryExecutionDecorator((query, ctx) => {
-        if (ctx.context.channel?.type === "GUILD_TEXT") return ctx.context.channel.nsfw;
+export const nsfwOnly = createQueryExecutionDecorator((query, ctx) => {
+    if (ctx.context.channel?.type === "GUILD_TEXT") return ctx.context.channel.nsfw;
 
-        return false;
-    });
-}
+    return false;
+});
 
 type ExtendedCommandConstructor = new (...args: ConstructorParameters<typeof BaseCommand>) => BaseCommand;
 export function Query(query: CommandQuery): ClassDecorator<ExtendedCommandConstructor, ExtendedCommandConstructor> {
