@@ -9,7 +9,8 @@ import {
     InteractionReplyOptions,
     Message,
     ReplyMessageOptions,
-    SelectMenuInteraction
+    SelectMenuInteraction,
+    User
 } from "discord.js";
 
 export type ContextType =
@@ -53,6 +54,10 @@ export class CommandQueryContext {
         if (this.type === "autocomplete") {
             return (this.context as AutocompleteInteraction).respond.bind(this.context);
         }
+    }
+
+    public get author(): User {
+        return this.isInteraction() ? this.context.user : (this.context as Message).author;
     }
 
     public get member(): GuildMember | null {
