@@ -29,12 +29,12 @@ export interface CategoryData {
 }
 
 export interface CommandQuery {
-    regex?: string;
-    path?: string;
     description?: string;
     aliases?: string[];
-    usage?: string;
     identifier: string;
+    regex?: string;
+    usage?: string;
+    path?: string;
 }
 
 export type OsuRank =
@@ -48,6 +48,8 @@ export type OsuRank =
     | "X"
     | "XH";
 
+type StrBool = "0" | "1";
+
 interface BaseOsuData {
     countgeki: string;
     countkatu: string;
@@ -59,11 +61,11 @@ interface BaseOsuData {
 }
 
 interface BaseGameplay extends BaseOsuData {
-    replay_available: "0" | "1";
+    replay_available: StrBool;
     enabled_mods: string;
     beatmap_id: string;
     maxcombo: string;
-    perfect: "0" | "1";
+    perfect: StrBool;
     score_id: string;
     rank: OsuRank;
     score: string;
@@ -86,22 +88,22 @@ export type RawUserBest = BaseGameplay;
 
 export interface RawBeatmap {
     approved: "-1" | "-2" | "0" | "1" | "2" | "3" | "4";
-    download_unavailable: "0" | "1";
-    audio_unavailable: "0" | "1";
+    download_unavailable: StrBool;
+    mode: "0" | "1" | "2" | "3";
+    audio_unavailable: StrBool;
     difficultyrating: string;
     favourite_count: string;
     approved_date: string;
     beatmapset_id: string;
     diff_approach: string;
     count_spinner: string;
-    mode: "0" | "1" | "2" | "3";
     count_normal: string;
     count_slider: string;
     diff_overall: string;
     total_length: string;
     language_id: string;
     last_update: string;
-    storyboard: "0" | "1";
+    storyboard: StrBool;
     submit_date: string;
     beatmap_id: string;
     creator_id: string;
@@ -120,12 +122,17 @@ export interface RawBeatmap {
     artist: string;
     rating: string;
     source: string;
-    video: "0" | "1";
+    video: StrBool;
     title: string;
     tags: string;
     bpm: string;
 }
 
-export type MethodDecorator<Target, Result> = (target: Target, propertyKey: string, descriptor: PropertyDescriptor) => Result;
-export type ClassDecorator<Target extends (abstract new (...args: any[]) => unknown) | (new (...args: any[]) => unknown), Result = unknown> = (target: Target) => Result;
+type Constructor<Result = unknown> = (abstract new (...args: any[]) => Result) | (new (...args: any[]) => Result);
+
+export type MethodDecorator<Target, Result> = (
+    target: Target,
+    propertyKey: string,
+    descriptor: PropertyDescriptor) => Result;
+export type ClassDecorator<Target extends Constructor, Result = unknown> = (target: Target) => Result;
 export type Promisable<Output> = Output | Promise<Output>;
