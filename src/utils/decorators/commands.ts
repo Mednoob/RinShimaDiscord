@@ -1,28 +1,30 @@
 import { BaseCommand } from "../../structures/BaseCommand";
 import { ClassDecorator, CommandQuery, MethodDecorator, Promisable } from "../../typings";
+import { ClientUtils } from "../ClientUtils";
+import * as config from "../../config";
 import { PermissionString } from "discord.js";
 
 function createQueryExecutionDecorator(
-    func: (query: BaseCommand, ...args: Parameters<BaseCommand["execute"]>) => Promisable<boolean | undefined>
+    func: (...args: Parameters<BaseCommand["execute"]>) => Promisable<boolean | undefined>
 ): MethodDecorator<BaseCommand, void> {
     return (target, _, descriptor) => {
-        const originalMethod = target.execute.bind(target);
+        const originalMethod = descriptor.value as BaseCommand["execute"];
 
         descriptor.value = async function value(...args: Parameters<BaseCommand["execute"]>) {
-            const res = await func(target, ...args);
+            const res = await func(...args);
             if (res === false) return;
 
-            return originalMethod(...args);
+            return originalMethod.apply(this, args);
         };
     };
 }
 
 export function requirePermissions(permissions: PermissionString[]): MethodDecorator<BaseCommand, void> {
-    return createQueryExecutionDecorator((query, ctx) => {
+    return createQueryExecutionDecorator(ctx => {
         if (!ctx.member?.permissions.has(permissions)) {
             void ctx.reply({
                 embeds: [
-                    query.rin.utils.createEmbed("danger", "You don't have the required permissions to execute this command.")
+                    ClientUtils.createEmbed("danger", "You don't have the required permissions to execute this command.")
                 ]
             });
             return false;
@@ -31,10 +33,10 @@ export function requirePermissions(permissions: PermissionString[]): MethodDecor
 }
 
 export const devOnly = createQueryExecutionDecorator(
-    (query, ctx) => query.rin.config.devs.includes(ctx.author.id)
+    ctx => config.devs.includes(ctx.author.id)
 );
 
-export const nsfwOnly = createQueryExecutionDecorator((query, ctx) => {
+export const nsfwOnly = createQueryExecutionDecorator(ctx => {
     if (ctx.context.channel?.type === "GUILD_TEXT") return ctx.context.channel.nsfw;
 
     return false;
