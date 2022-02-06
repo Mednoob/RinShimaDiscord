@@ -95,7 +95,12 @@ export class CommandManager {
         if (!command) return;
 
         try {
-            const context = new CommandQueryContext(message, (new RegExp(command.data.regex!).exec(query)![1] as string | undefined)?.trim().split(" ") ?? []);
+            const ctxArgs = (
+                new RegExp(command.data.regex!).exec(query)![1] as string | undefined
+            )?.trim()
+                .split(" ")
+                .filter(Boolean) ?? [];
+            const context = new CommandQueryContext(message, ctxArgs);
             void command.execute(context);
         } finally {
             console.log(`${message.author.tag} used ${command.data.identifier} command`);
