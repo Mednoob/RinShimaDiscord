@@ -27,12 +27,10 @@ export class HelpCommand extends BaseCommand {
             iconURL: this.client.user?.displayAvatarURL()
         })
         .setFooter({
-            text: `${this.client.config.prefix}help <command> to get more information on a specific command`,
-            iconURL: "https://raw.githubusercontent.com/Cyteliz/rawon/main/.github/images/info.png"
+            text: `${this.client.config.prefix}help <command> to get more information on a specific command`
         });
 
-    private readonly infoEmbed = createEmbed("info")
-        .setThumbnail("https://raw.githubusercontent.com/Cyteliz/rawon/main/.github/images/question_mark.png");
+    private readonly infoEmbed = createEmbed("info");
 
     public async execute(ctx: CommandContext): Promise<Message | undefined> {
         if (ctx.isInteraction() && !ctx.deferred) await ctx.deferReply();
@@ -139,8 +137,7 @@ export class HelpCommand extends BaseCommand {
                     true
                 )
                 .setFooter({
-                    text: `<> = required | [] = optional ${command.meta.devOnly ? "(developer-only command)" : ""}`,
-                    iconURL: "https://raw.githubusercontent.com/Cyteliz/rawon/.github/images/info.png"
+                    text: `<> = required | [] = optional ${command.meta.devOnly ? "(developer-only command)" : ""}`
                 })]
         }, "editReply");
     }
