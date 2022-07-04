@@ -47,6 +47,7 @@
         "got": "^12.1.0",
         "mongoose": "^6.4.2",
         "pino": "^8.1.0",
-        "pino-pretty": "^8.1.0"
+        "pino-pretty": "^8.1.0",
+        "tree-kill": "^1.2.2"
     }
 }
