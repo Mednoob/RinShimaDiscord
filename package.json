@@ -45,7 +45,7 @@
         "discord.js": "^13.8.1",
         "dotenv": "^16.0.1",
         "got": "^12.1.0",
-        "mongoose": "^6.4.2",
+        "mongoose": "^6.3.5",
         "pino": "^8.1.0",
         "pino-pretty": "^8.1.0",
         "tree-kill": "^1.2.2"
