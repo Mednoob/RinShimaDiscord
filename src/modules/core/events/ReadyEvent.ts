@@ -1,9 +1,18 @@
 import { BaseEvent } from "../../../structures/BaseEvent";
 import { Event } from "../../../utils/decorators/Event";
+import mongoose from "mongoose";
 
 @Event("ready")
 export class ReadyEvent extends BaseEvent {
     public execute(): void {
         this.client.logger.info(`Logged in as ${this.client.user!.tag}`);
+
+        mongoose.connect(process.env.MONGO_URL!, err => {
+            if (err) {
+                this.client.logger.error(err);
+            } else {
+                this.client.logger.info("Connected to MongoDB");
+            }
+        });
     }
 }
