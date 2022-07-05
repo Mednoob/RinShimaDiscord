@@ -7,7 +7,9 @@ export class ReadyEvent extends BaseEvent {
     public execute(): void {
         this.client.logger.info(`Logged in as ${this.client.user!.tag}`);
 
-        mongoose.connect(process.env.MONGO_URL!, err => {
+        mongoose.connect(process.env.MONGO_URL!, {
+            dbName: this.client.config.dbName
+        }, err => {
             if (err) {
                 this.client.logger.error(err);
             } else {
