@@ -1,7 +1,7 @@
-import { CommandContext } from "../../../../structures/CommandContext";
-import { createEmbed } from "../../../../utils/functions/createEmbed";
-import { BaseCommand } from "../../../../structures/BaseCommand";
-import { Command } from "../../../../utils/decorators/Command";
+import { CommandContext } from "#rin/structures/CommandContext";
+import { createEmbed } from "#rin/utils/functions/createEmbed";
+import { BaseCommand } from "#rin/structures/BaseCommand";
+import { Command } from "#rin/utils/decorators/Command";
 import { ChildProcess, spawn } from "node:child_process";
 import { Collection } from "discord.js";
 import kill from "tree-kill";

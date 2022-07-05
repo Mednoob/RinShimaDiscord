@@ -1,6 +1,6 @@
-import { createEmbed } from "../../../utils/functions/createEmbed";
-import { BaseEvent } from "../../../structures/BaseEvent";
-import { Event } from "../../../utils/decorators/Event";
+import { createEmbed } from "#rin/utils/functions/createEmbed";
+import { BaseEvent } from "#rin/structures/BaseEvent";
+import { Event } from "#rin/utils/decorators/Event";
 import { Message, User } from "discord.js";
 
 @Event<typeof MessageCreateEvent>("messageCreate")

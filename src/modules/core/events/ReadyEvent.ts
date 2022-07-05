@@ -1,5 +1,5 @@
-import { BaseEvent } from "../../../structures/BaseEvent";
-import { Event } from "../../../utils/decorators/Event";
+import { BaseEvent } from "#rin/structures/BaseEvent";
+import { Event } from "#rin/utils/decorators/Event";
 import mongoose from "mongoose";
 
 @Event("ready")

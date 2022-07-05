@@ -1,7 +1,7 @@
-import { CommandContext } from "../../../structures/CommandContext";
-import { createEmbed } from "../../../utils/functions/createEmbed";
-import { BaseEvent } from "../../../structures/BaseEvent";
-import { Event } from "../../../utils/decorators/Event";
+import { CommandContext } from "#rin/structures/CommandContext";
+import { createEmbed } from "#rin/utils/functions/createEmbed";
+import { BaseEvent } from "#rin/structures/BaseEvent";
+import { Event } from "#rin/utils/decorators/Event";
 import { Interaction } from "discord.js";
 
 @Event("interactionCreate")

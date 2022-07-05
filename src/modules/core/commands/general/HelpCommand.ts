@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { CommandContext } from "../../../../structures/CommandContext";
-import { createEmbed } from "../../../../utils/functions/createEmbed";
-import { BaseCommand } from "../../../../structures/BaseCommand";
-import { Command } from "../../../../utils/decorators/Command";
+import { CommandContext } from "#rin/structures/CommandContext";
+import { createEmbed } from "#rin/utils/functions/createEmbed";
+import { BaseCommand } from "#rin/structures/BaseCommand";
+import { Command } from "#rin/utils/decorators/Command";
 import { Message, MessageActionRow, MessageSelectMenu, MessageSelectOptionData, SelectMenuInteraction } from "discord.js";
 
 @Command<typeof HelpCommand>({
