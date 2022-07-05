@@ -1,15 +1,19 @@
 import { createEmbed } from "#rin/utils/functions/createEmbed";
 import { BaseEvent } from "#rin/structures/BaseEvent";
 import { Event } from "#rin/utils/decorators/Event";
+import GuildPrefix from "../models/GuildPrefix";
 import { Message, User } from "discord.js";
 
 @Event<typeof MessageCreateEvent>("messageCreate")
 export class MessageCreateEvent extends BaseEvent {
-    public execute(message: Message): void {
+    public async execute(message: Message): Promise<void> {
         if (message.author.bot || message.channel.type === "DM") return;
-        if (message.content.startsWith(this.client.config.prefix)) {
-            void this.client.commands.handle(message);
-            return;
+
+        const data = await GuildPrefix.findOne({ guildId: message.guildId });
+        if (data && message.content.startsWith(data.prefix)) {
+            return this.client.commands.handle(message, data.prefix);
+        } else if (message.content.startsWith(this.client.config.prefix)) {
+            return this.client.commands.handle(message, this.client.config.prefix);
         }
 
         if (this.getUserFromMention(message.content)?.id === this.client.user?.id) {

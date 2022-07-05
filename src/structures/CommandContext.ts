@@ -1,3 +1,4 @@
+import { prefix as pref } from "../config/env";
 import {
     ButtonInteraction,
     Collection,
@@ -19,7 +20,11 @@ import {
 export class CommandContext {
     public additionalArgs: Collection<string, any> = new Collection();
 
-    public constructor(public readonly context: Interaction | Message, public args: string[] = []) {}
+    public constructor(
+        public readonly context: Interaction | Message,
+        public args: string[] = [],
+        public prefix: string = pref
+    ) {}
 
     public get author(): User {
         return this.isInteraction() ? this.context.user : (this.context as Message).author;

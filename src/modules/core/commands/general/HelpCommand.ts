@@ -25,9 +25,6 @@ export class HelpCommand extends BaseCommand {
         .setAuthor({
             name: `${this.client.user!.username} - Command List`,
             iconURL: this.client.user?.displayAvatarURL()
-        })
-        .setFooter({
-            text: `${this.client.config.prefix}help <command> to get more information on a specific command`
         });
 
     private readonly infoEmbed = createEmbed("info");
@@ -48,7 +45,10 @@ export class HelpCommand extends BaseCommand {
 
         if (!val) {
             const embed = this.listEmbed
-                .setThumbnail(ctx.guild!.iconURL({ dynamic: true, format: "png", size: 2048 })!);
+                .setThumbnail(ctx.guild!.iconURL({ dynamic: true, format: "png", size: 2048 })!)
+                .setFooter({
+                    text: `${ctx.prefix}help <command> to get more information on a specific command`
+                });
 
             this.listEmbed.fields = [];
 
@@ -133,7 +133,7 @@ export class HelpCommand extends BaseCommand {
                 )
                 .addField(
                     "Usage",
-                    `**\`${command.meta.usage!.replace(/{prefix}/g, this.client.config.prefix)}\`**`,
+                    `**\`${command.meta.usage!.replace(/{prefix}/g, ctx.prefix)}\`**`,
                     true
                 )
                 .setFooter({

@@ -111,15 +111,18 @@ export class CommandManager extends Collection<string, BaseCommand> {
         return commands;
     }
 
-    public handle(message: Message): Promisable<void> {
-        const args = message.content.substring(this.client.config.prefix.length).trim().split(/ +/);
+    public handle(message: Message, prefix: string): Promisable<void> {
+        const args = message.content.substring(prefix.length).trim().split(/ +/);
         const cmd = args.shift()?.toLowerCase();
         const command = this.get(cmd!) ?? this.get(this.aliases.get(cmd!)!);
+
         if (!command || command.meta.disable) return undefined;
         if (!this.cooldowns.has(command.meta.name)) this.cooldowns.set(command.meta.name, new Collection());
+
         const now = Date.now();
         const timestamps = this.cooldowns.get(command.meta.name);
         const cooldownAmount = (command.meta.cooldown ?? 3) * 1000;
+
         if (timestamps?.has(message.author.id)) {
             const expirationTime = timestamps.get(message.author.id)! + cooldownAmount;
             if (now < expirationTime) {
@@ -138,7 +141,7 @@ export class CommandManager extends Collection<string, BaseCommand> {
         }
         try {
             if (command.meta.devOnly && !this.client.config.devs.includes(message.author.id)) return undefined;
-            return command.execute(new CommandContext(message, args));
+            return command.execute(new CommandContext(message, args, prefix));
         } catch (e) {
             this.client.logger.error("COMMAND_HANDLER_ERR:", e);
         } finally {
