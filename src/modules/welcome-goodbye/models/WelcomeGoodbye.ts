@@ -4,7 +4,7 @@ const { getModelForClass, prop } = typegoose;
 
 class Data {
     @prop()
-    public message?: string;
+    public msg?: string;
 
     @prop()
     public channelId?: string;
@@ -13,7 +13,7 @@ class Data {
     public enabled?: boolean;
 }
 
-class WelcomeGoodbye {
+export class WelcomeGoodbye {
     @prop({ required: true, unique: true })
     public guildId!: string;
 
@@ -26,6 +26,6 @@ class WelcomeGoodbye {
 
 export default getModelForClass(WelcomeGoodbye, {
     schemaOptions: {
-        collection: "welcome"
+        collection: "welcome-goodbye"
     }
 });
