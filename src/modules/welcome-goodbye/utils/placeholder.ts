@@ -7,7 +7,7 @@ interface PlaceholderData {
     replacement: (member: GuildMember) => string;
 }
 
-export let placeholders: PlaceholderData[] = [
+export const placeholders: PlaceholderData[] = [
     {
         description: "User mention",
         placeholders: ["{user}"],
@@ -40,17 +40,17 @@ export let placeholders: PlaceholderData[] = [
     }
 ];
 
-placeholders = placeholders.map(p => ({
+const escaped = placeholders.map(p => ({
     ...p,
     placeholders: p.placeholders.map(x => escapeRegexp(x))
 }));
 
 export function replace(str: string, member: GuildMember): string {
-    for (const data of placeholders) {
+    for (const [key, data] of placeholders.entries()) {
         // eslint-disable-next-line @typescript-eslint/no-loop-func
         if (data.placeholders.some(p => str.includes(p))) {
             str = str.replace(
-                new RegExp(data.placeholders.join("|"), "g"),
+                new RegExp(escaped[key].placeholders.join("|"), "g"),
                 data.replacement(member)
             );
         }
