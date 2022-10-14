@@ -1,3 +1,3 @@
-# project-template
+# Rin Shima Discord Bot
 
-A template to generate well-configured project base for Clytage.
+The main code of Rin Shima Discord bot.
